@@ -6,7 +6,7 @@ import getopt
 
 
 def createVhost(domainName):
-    fileName = "/Users/yash/Yash/learning/project_stuff/legendary-pypy/python_scripts/stuff/" + \
+    fileName = "/etc/apache2/sites-available/" + \
         "5" + domainName + ".conf"
     writeString = f"""<VirtualHost *:80>
 	ServerName {domainName + ".trypypy.com"}
