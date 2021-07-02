@@ -77,7 +77,7 @@ def runScript():
     try:
         opts, args = getopt.getopt(sys.argv[1:], "c:d:")
         if not opts:
-            print(instructions)
+            print(instructions())
         for opt, arg in opts:
             if opt == '-c':
                 createVhost(subDomain=arg)
