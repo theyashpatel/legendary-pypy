@@ -44,7 +44,7 @@ def reloadApache():
 def createVhost(subDomain):
     createVhostFile(subDomain)
     exCmd(f'a2ensite {getFileName(subDomain)}')
-    exCmd(f'certbot --apache -n -d {getFullDomainName(subDomain)}')
+    # exCmd(f'certbot --apache -n -d {getFullDomainName(subDomain)}')
     reloadApache()
     print('\n\n* * * Server Reloaded * * *\n\n')
 
