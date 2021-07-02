@@ -46,6 +46,7 @@ def createVhost(subDomain):
     exCmd(f'a2ensite {getFileName(subDomain)}')
     exCmd(f'certbot --apache -n -d {getFullDomainName(subDomain)}')
     reloadApache()
+    print('\n\n* * * Server Reloaded * * *\n\n')
 
 
 def deleteVhost(subDomain):
@@ -53,6 +54,7 @@ def deleteVhost(subDomain):
     exCmd(f'rm {VHOST_DIR_PATH}5{subDomain}*')
     exCmd(f'certbot delete --cert-name {subDomain}.trypypy.com')
     reloadApache()
+    print('\n\n* * * Server Reloaded * * *\n\n')
 
 
 def deleteVhosts(subDomains):
