@@ -68,7 +68,7 @@ def instructions():
             
 Usage: ./vhost-creator.py -dc <subDomain>
 c: create
-d: delete [, separated domains]
+d: delete [, separated subDomains]
             
 """
 
