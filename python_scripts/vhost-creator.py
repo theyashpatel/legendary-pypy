@@ -27,6 +27,17 @@ def createVhostFile(subDomain):
     RewriteEngine on
     RewriteCond %{{SERVER_NAME}} ={getFullDomainName(subDomain)}
     RewriteRule ^ https://%{{SERVER_NAME}}%{{REQUEST_URI}} [END,NE,R=permanent]
+</VirtualHost>
+
+<VirtualHost *:443>
+	ServerName {getFullDomainName(subDomain)}
+	DocumentRoot /var/www/trypypy/root_domain/
+	ErrorLog /var/www/trypypy/root_domain/logs/sub-error.log
+	CustomLog /var/www/trypypy/root_domain/logs/sub-access.log combined
+
+SSLCertificateFile /etc/letsencrypt/live/trypypy.com-0001/fullchain.pem
+SSLCertificateKeyFile /etc/letsencrypt/live/trypypy.com-0001/privkey.pem
+Include /etc/letsencrypt/options-ssl-apache.conf
 </VirtualHost>"""
     f = open(getFileName(subDomain, fullPath=True), "w")
     f.write(writeString)
