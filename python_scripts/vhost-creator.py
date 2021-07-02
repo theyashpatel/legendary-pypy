@@ -52,13 +52,10 @@ def reloadApache():
     return exCmd('systemctl reload apache2')
 
 
-def createVhost(subDomain, reloadApache=True):
+def createVhost(subDomain):
     createVhostFile(subDomain)
     exCmd(f'a2ensite {getFileName(subDomain)}')
     # exCmd(f'certbot --apache -n -d {getFullDomainName(subDomain)}')
-    if reloadApache:
-        reloadApache()
-    print('\n\n* * * Server Reloaded * * *\n\n')
 
 
 def createVhosts(subDomains):
@@ -66,17 +63,15 @@ def createVhosts(subDomains):
     for sd in subDomainsArray:
         if sd == "":
             continue
-        createVhost(sd, reloadApache=False)
+        createVhost(sd)
     reloadApache()
+    print('\n\n* * * Server Reloaded * * *\n\n')
 
 
-def deleteVhost(subDomain, reloadApache=True):
+def deleteVhost(subDomain):
     exCmd(f'a2dissite 5{subDomain}*')
     exCmd(f'rm {VHOST_DIR_PATH}5{subDomain}*')
     # exCmd(f'certbot delete --cert-name {subDomain}.trypypy.com')
-    if reloadApache:
-        reloadApache()
-    print('\n\n* * * Server Reloaded * * *\n\n')
 
 
 def deleteVhosts(subDomains):
@@ -84,15 +79,16 @@ def deleteVhosts(subDomains):
     for sd in subDomainsArray:
         if sd == "":
             continue
-        deleteVhost(sd, reloadApache=False)
+        deleteVhost(sd)
     reloadApache()
+    print('\n\n* * * Server Reloaded * * *\n\n')
 
 
 def instructions():
     return """
             
 Usage: ./vhost-creator.py -dc <subDomain>
-c: create
+c: create [, separated subDomains]
 d: delete [, separated subDomains]
             
 """
