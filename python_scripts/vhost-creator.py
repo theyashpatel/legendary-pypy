@@ -52,19 +52,30 @@ def reloadApache():
     return exCmd('systemctl reload apache2')
 
 
-def createVhost(subDomain):
+def createVhost(subDomain, reloadApache=True):
     createVhostFile(subDomain)
     exCmd(f'a2ensite {getFileName(subDomain)}')
     # exCmd(f'certbot --apache -n -d {getFullDomainName(subDomain)}')
-    reloadApache()
+    if reloadApache:
+        reloadApache()
     print('\n\n* * * Server Reloaded * * *\n\n')
 
 
-def deleteVhost(subDomain):
+def createVhosts(subDomains):
+    subDomainsArray = subDomains.split(',')
+    for sd in subDomainsArray:
+        if sd == "":
+            continue
+        createVhost(sd, reloadApache=False)
+    reloadApache()
+
+
+def deleteVhost(subDomain, reloadApache=True):
     exCmd(f'a2dissite 5{subDomain}*')
     exCmd(f'rm {VHOST_DIR_PATH}5{subDomain}*')
-    exCmd(f'certbot delete --cert-name {subDomain}.trypypy.com')
-    reloadApache()
+    # exCmd(f'certbot delete --cert-name {subDomain}.trypypy.com')
+    if reloadApache:
+        reloadApache()
     print('\n\n* * * Server Reloaded * * *\n\n')
 
 
@@ -73,7 +84,8 @@ def deleteVhosts(subDomains):
     for sd in subDomainsArray:
         if sd == "":
             continue
-        deleteVhost(sd)
+        deleteVhost(sd, reloadApache=False)
+    reloadApache()
 
 
 def instructions():
@@ -93,7 +105,7 @@ def runScript():
             print(instructions())
         for opt, arg in opts:
             if opt == '-c':
-                createVhost(subDomain=arg)
+                createVhosts(subDomains=arg)
             elif opt == '-d':
                 deleteVhosts(subDomains=arg)
     except getopt.GetoptError as err:
