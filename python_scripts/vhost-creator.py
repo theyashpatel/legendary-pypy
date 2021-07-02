@@ -87,7 +87,7 @@ def deleteVhosts(subDomains):
 def instructions():
     return """
             
-Usage: ./vhost-creator.py -dc <subDomain>
+Usage: vhost-creator -dc <subDomain>
 c: create [, separated subDomains]
 d: delete [, separated subDomains]
             
