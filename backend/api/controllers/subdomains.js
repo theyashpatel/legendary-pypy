@@ -6,7 +6,9 @@ const python_scripts_path = '/stuff/legendary-pypy/python-scripts/'
 
 async function createSDScript(sd) {
 try {
-    const { stdout, stderr } = await exec(`${python_scripts_path}vhost-creator.py - c ${sd}`);
+    const { stdout, stderr } = await exec(`${python_scripts_path}vhost-creator.py -c ${sd}`);
+    console.log(stdout)
+    console.log(stderr)
 }catch (err){
     console.error(err);
 };
@@ -14,7 +16,9 @@ try {
 
 async function deleteSDScript(sd) {
 try {
-    const { stdout, stderr } = await exec(`${python_scripts_path}vhost-creator.py - d ${sd}`);
+    const { stdout, stderr } = await exec(`${python_scripts_path}vhost-creator.py -d ${sd}`);
+    console.log(stdout)
+    console.log(stderr)
 }catch (err){
     console.error(err);
 };
