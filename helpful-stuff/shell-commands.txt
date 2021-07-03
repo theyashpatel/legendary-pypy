@@ -1,0 +1,3 @@
+eval \"$(ssh-agent -s)\" : start ssh agent
+ssh-add : type command and enter passphrase to add key
+pidof ssh-agent": "get pid of active ssh agent
