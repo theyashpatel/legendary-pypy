@@ -34,9 +34,7 @@ const createSubDomain = async (req, res) => {
 // delete domain
 const deleteSubDomain = async (req, res) => {
     const { sdomain } = req.params
-    print(sdomain)
     const sd = await SubDomain.findOneAndDelete({subdomain: sdomain})
-    print(sd)
     if (!sd) {
         return res.status(404).send('resource not found')
     }
